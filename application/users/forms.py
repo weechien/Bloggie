@@ -62,7 +62,8 @@ class UpdateAccountForm(FlaskForm):
                         validators=[DataRequired(),
                                     Length(max=120),
                                     Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Update Profile Picture', validators=[
+                        FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -78,3 +79,30 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError(
                     'That email is taken. Please choose a different one.')
+
+
+class ResetRequestForm(FlaskForm):
+    email = StringField('Email',
+                        validators=[DataRequired(),
+                                    Length(max=120),
+                                    Email()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError(
+                'There is no account with that email. Please register first.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password',
+                             validators=[DataRequired(),
+                                         Length(max=100),
+                                         Regexp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
+                                                message=('Password must contain at least eight characters, at least one number, lowercase letter, uppercase letter, and special character (e.g. #?!@$%^&*-).'))])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(),
+                                                 Length(max=100),
+                                                 EqualTo('password')])
+    submit = SubmitField('Reset Password')
