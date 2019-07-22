@@ -1,10 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="mb-3">
-        <a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="btn btn-md btn-secondary mr-3">Update</a>
-        <button class="btn btn-danger btn-md" data-toggle="modal" data-target="#deleteModal">Delete</button>
-    </div>
+    {% if post.author == current_user %}
+        <div class="mb-3">
+            <a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="btn btn-md btn-secondary mr-3">Update</a>
+            <button class="btn btn-danger btn-md" data-toggle="modal" data-target="#deleteModal">Delete</button>
+        </div>
+    {% endif %}
     <div class="card mb-3 p-3 shadow bg-light">
         <div class="row">
             <div class="ml-3 mb-3 pr-2">
