@@ -1,0 +1,46 @@
+body {
+    background-color: #F5F1EE;
+}
+
+.navbar {
+    background-color: #D34054;
+}
+
+.btn-secondary {
+    background-color: #CD6C98;
+    border-color: #CD6C98;
+}
+
+.btn-secondary:hover {
+    background-color: #E48A83;
+    border-color: #E48A83;
+}
+
+.profile-img {
+    height: 125px;
+    width: 125px;
+}
+
+.post-img {
+    height: 65px;
+    width: 65px;
+}
+
+.post-title {
+    color: #D34054;
+}
+
+.post-content {
+    white-space: pre-line;
+}
+
+.clean-a {
+    color: inherit;
+}
+
+.clean-a:hover {
+    color: #E48A83;
+    text-decoration: none;
+}
+
+/* F5F1EE E48A83 D34054 CD6C98 493D5F */

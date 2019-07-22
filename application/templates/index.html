@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% for post in posts.items %}
+        <div class="card mb-3 p-3 shadow bg-light">
+            <div class="row">
+                <div class="ml-3 mb-3 pr-2">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="post-img rounded mx-md-auto d-block">
+                </div>
+                <div class="col">
+                    <h6 class="mb-2 text-muted small">{{ post.date_posted.strftime('%A, %d %B %Y')}}</h6>
+                    <hr class="my-2">
+                    <h4 class="post-title">
+                        <a class="clean-a" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+                    </h4>
+                    <div class="text-muted small mb-3">
+                        <a class="clean-a" href="{{ url_for('users.user_posts', username=post.author.username) }}">By {{ post.author.username }}</a>
+                    </div>
+                    <p class="post-content">{{ post.content }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if page_num == posts.page %}
+                <a href="{{ url_for('main.index', page=page_num) }}" class="btn btn-info mb-4">{{ page_num }}</a>
+            {% else %}
+                <a href="{{ url_for('main.index', page=page_num) }}" class="btn btn-outline-info mb-4">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{% endblock %}
