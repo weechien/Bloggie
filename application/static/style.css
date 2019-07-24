@@ -43,4 +43,35 @@ body {
     text-decoration: none;
 }
 
+.dropdown:focus {
+    box-shadow: none;
+}
+
+.btn-outline-info {
+    color: #E48A83;
+    border-color: #E48A83;
+}
+
+.btn-outline-info:hover {
+    background-color: #E48A83;
+    border-color: #E48A83;
+}
+
+.btn.btn-outline-info.active.focus,
+.btn.btn-outline-info.active:focus,
+.btn.btn-outline-info.active:hover,
+.btn.btn-outline-info:active.focus,
+.btn.btn-outline-info:active:focus,
+.btn.btn-outline-info:active:hover,
+.btn:focus,
+.btn:active {
+    background-color: #E48A83 !important;
+    border-color: #E48A83 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-color: #E48A83 !important;
+    color: #E48A83 !important;
+    -webkit-box-shadow: none !important;
+}
+
 /* F5F1EE E48A83 D34054 CD6C98 493D5F */
