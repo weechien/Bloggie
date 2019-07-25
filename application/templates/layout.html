@@ -65,10 +65,26 @@
                     <h3>Categories</h3>
                     <p class='text-muted'>View your favourite category
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Programming</li>
-                            <li class="list-group-item list-group-item-light">Science</li>
-                            <li class="list-group-item list-group-item-light">Machine Learning</li>
-                            <li class="list-group-item list-group-item-light">Other Tech</li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{{ url_for('posts.category_posts', category='Programming') }}" class="clean-a">
+                                    Programming
+                                </a>
+                            </li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{{ url_for('posts.category_posts', category='Science') }}" class="clean-a">
+                                    Science
+                                </a>
+                            </li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{{ url_for('posts.category_posts', category='Machine Learning') }}" class="clean-a">
+                                    Machine Learning
+                                </a>
+                            </li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{{ url_for('posts.category_posts', category='Other Tech') }}" class="clean-a">
+                                    Other Tech
+                                </a>
+                            </li>
                         </ul>
                     </p>
                 </div>
