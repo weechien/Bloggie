@@ -13,7 +13,9 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data,
-                    content=form.content.data, author=current_user)
+                    content=form.content.data,
+                    category=dict(form.category.choices).get(form.category.data),
+                    author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -38,12 +40,14 @@ def update_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
+        post.category = dict(form.category.choices).get(form.category.data)
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+        form.category.data = post.category[0]
     return render_template('post_form.html', title='Update Post', form=form)
 
 
@@ -57,3 +61,13 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.index'))
+
+
+@posts.route('/post/<string:category>')
+def category_posts(category):
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query\
+        .filter_by(category=category)\
+        .order_by(Post.date_posted.desc())\
+        .paginate(page=page, per_page=5)
+    return render_template('category_posts.html', posts=posts)

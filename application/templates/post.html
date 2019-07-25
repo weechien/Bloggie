@@ -8,23 +8,27 @@
         </div>
     {% endif %}
     <div class="card mb-3 p-3 shadow bg-light">
-        <div class="row">
-            <div class="ml-3 mb-3 pr-2">
-                <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="post-img rounded mx-md-auto d-block">
-            </div>
-            <div class="col">
-                <h6 class="mb-2 text-muted small">{{ post.date_posted.strftime('%A, %d %B %Y')}}</h6>
-                <hr class="my-2">
-                <h4 class="post-title">
-                    {{ post.title }}
-                </h4>
-                <div class="text-muted small mb-3">
-                    <a class="clean-a" href="{{ url_for('users.user_posts', username=post.author.username) }}">By {{ post.author.username }}</a>
+            <div class="row">
+                <div class="ml-3 mb-3 pr-2">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="post-img rounded mx-md-auto d-block">
                 </div>
-                <p class="post-content">{{ post.content }}</p>                
+                <div class="col">
+                    <h6 class="post-category mb-1 small">
+                        {% filter upper %}
+                            {{ post.category}}
+                        {% endfilter %}
+                    </h6>
+                    <h3 class="post-title mb-3">
+                        <a class="clean-a" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="text-muted small mb-3">
+                        By <a class="clean-a" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                        on {{ post.date_posted.strftime('%b %d, %Y')}}
+                    </div>
+                    <p class="post-content">{{ post.content }}</p>
+                </div>
             </div>
         </div>
-    </div>
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
