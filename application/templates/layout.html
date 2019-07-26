@@ -23,7 +23,7 @@
                     <ul class="navbar-nav ml-auto">
                         {% if current_user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
+                                <a class="nav-link" href="{{ url_for('posts.new_post') }}"></a>New Post</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url_for('users.account') }}">Account</a>
@@ -65,26 +65,26 @@
                     <h3>Categories</h3>
                     <p class='text-muted'>View by your favourite category
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">
-                                <a href="{{ url_for('posts.category_posts', category='Programming') }}" class="clean-a">
+                            <a href="{{ url_for('posts.category_posts', category='Programming') }}" class="clean-a">
+                                <li class="list-group-item list-group-item-light">
                                     Programming
-                                </a>
-                            </li>
-                            <li class="list-group-item list-group-item-light">
-                                <a href="{{ url_for('posts.category_posts', category='Science') }}" class="clean-a">
+                                </li>
+                            </a>
+                            <a href="{{ url_for('posts.category_posts', category='Science') }}" class="clean-a">
+                                <li class="list-group-item list-group-item-light">
                                     Science
-                                </a>
-                            </li>
-                            <li class="list-group-item list-group-item-light">
-                                <a href="{{ url_for('posts.category_posts', category='Machine Learning') }}" class="clean-a">
+                                </li>
+                            </a>
+                            <a href="{{ url_for('posts.category_posts', category='Machine Learning') }}" class="clean-a">
+                                <li class="list-group-item list-group-item-light">
                                     Machine Learning
-                                </a>
-                            </li>
-                            <li class="list-group-item list-group-item-light">
-                                <a href="{{ url_for('posts.category_posts', category='Other Tech') }}" class="clean-a">
+                                </li>
+                            </a>
+                            <a href="{{ url_for('posts.category_posts', category='Other Tech') }}" class="clean-a">
+                                <li class="list-group-item list-group-item-light">
                                     Other Tech
-                                </a>
-                            </li>
+                                </li>
+                            </a>
                         </ul>
                     </p>
                 </div>
