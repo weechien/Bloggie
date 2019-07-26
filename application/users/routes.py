@@ -1,9 +1,11 @@
+import os
+import asyncio
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from application import db, bcrypt
 from application.models import User, Post
 from application.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, ResetRequestForm, ResetPasswordForm
-from application.users.utils import save_picture, send_reset_email
+from application.users.utils import save_picture, remove_picture, send_reset_email
 
 users = Blueprint('users', __name__)
 
@@ -25,7 +27,7 @@ def register():
         flash('You account has been created! You are now able to log in.', 'success')
         return redirect(url_for('users.login'))
 
-    return render_template('register.html', title='Register', form=form)
+    return render_template('users/register.html', title='Register', form=form)
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -42,7 +44,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         flash('Login unsuccessful. Please check email and password.', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('users/login.html', title='Login', form=form)
 
 
 @users.route('/logout')
@@ -58,6 +60,7 @@ def account():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
+            remove_picture(current_user.image_file)
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -69,7 +72,7 @@ def account():
         form.email.data = current_user.email
     image_file = url_for(
         'static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
+    return render_template('users/account.html', title='Account', image_file=image_file, form=form)
 
 
 @users.route('/user/<string:username>')
@@ -80,7 +83,7 @@ def user_posts(username):
         .filter_by(author=user)\
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=5)
-    return render_template('user_posts.html', posts=posts, user=user)
+    return render_template('users/user_posts.html', posts=posts, user=user)
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])
@@ -93,7 +96,7 @@ def reset_request():
         send_reset_email(user)
         flash('An email has been sent to you containing a link to reset your password.', 'info')
         return redirect(url_for('users.login'))
-    return render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template('users/reset_request.html', title='Reset Password', form=form)
 
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -112,4 +115,4 @@ def reset_token(token):
         db.session.commit()
         flash('You password has been updated! You are now able to log in.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('reset_token.html', title='Reset Password', form=form)
+    return render_template('users/reset_token.html', title='Reset Password', form=form)

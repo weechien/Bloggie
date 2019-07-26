@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="bg-light rounded shadow border p-4">
+        <h1 class="display-5 mb-3">The {{ category }} category is currently empty...</h1>
+        <p class="lead mb-1">
+            Perhaps you would like to start a <a class="a-clean" href="{{ url_for('posts.new_post') }}">New Post</a>?
+        </p>
+    </div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
 from flask_login import current_user, login_required
 from application import db
-from application.models import Post
+from application.models import Post, User
 from application.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
@@ -20,13 +20,13 @@ def new_post():
         db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('main.index'))
-    return render_template('post_form.html', title='New Post', form=form)
+    return render_template('posts/post_form.html', title='New Post', form=form)
 
 
 @posts.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    return render_template('posts/post.html', title=post.title, post=post)
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
@@ -48,7 +48,7 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
         form.category.data = post.category[0]
-    return render_template('post_form.html', title='Update Post', form=form)
+    return render_template('posts/post_form.html', title='Update Post', form=form)
 
 
 @posts.route('/post/<int:post_id>/delete', methods=['POST'])
@@ -70,4 +70,11 @@ def category_posts(category):
         .filter_by(category=category)\
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=5)
-    return render_template('category_posts.html', posts=posts)
+    print('posts', posts.items)
+    if not posts.items:
+        return render_template('posts/no_post.html', category=category)
+    users = [User.query\
+        .filter(User.posts.contains(post))
+        .all() for post in posts.items]
+    print('users', users)
+    return render_template('posts/category_posts.html', posts=posts, users=users)

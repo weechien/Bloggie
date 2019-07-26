@@ -11,14 +11,21 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(
-        current_app.root_path, 'static/profile_pics', picture_fn)
-
+        current_app.root_path, 'static', 'profile_pics', picture_fn)
     output_size = (125, 125)
-    img = Image.open(form_picture)
-    img.thumbnail(output_size)
-    img.save(picture_path)
+    with Image.open(form_picture) as img:
+        img.thumbnail(output_size)
+        img.save(picture_path)
 
     return picture_fn
+
+
+def remove_picture(picture):
+    if picture == 'default.jpg':
+        return
+    picture_path = os.path.join(
+        current_app.root_path, 'static', 'profile_pics', picture)
+    os.remove(picture_path)
 
 
 def send_reset_email(user):
