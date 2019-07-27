@@ -38,6 +38,7 @@ MyFlaskJournal is a web app for people to post their thoughts and research on ma
 * [Flask-Mail](https://pythonhosted.org/Flask-Mail/) - SMTP setup for email transmission
 * [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) - Database utilities
 * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/) - Form input handling and validation
+* [Jinja2](http://jinja.pocoo.org/docs/2.10/) - Templating language for Python
 * [Pillow](https://pillow.readthedocs.io/en/stable/) - Image processing and manipulation
 * [itsdangerous](https://pythonhosted.org/itsdangerous/) - Data handling in untrusted environments
 
