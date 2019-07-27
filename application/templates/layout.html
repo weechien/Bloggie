@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark sticky-top mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('main.index') }}">MyFlaskJournal</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -45,7 +45,8 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
+    <br>
+    <main role="main" class="container mt-5">
         <div class="row">
             <div class="col-md-8">
                 {% with messages = get_flashed_messages(with_categories=true) %}
