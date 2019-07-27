@@ -56,5 +56,9 @@ body {
     border-color: #E48A83 !important;
     box-shadow: none !important;
 }
+.border-info {
+    border-color: #CD6C98 !important;
+    color: #CD6C98;
+}
 
 /* F5F1EE E48A83 D34054 CD6C98 493D5F */

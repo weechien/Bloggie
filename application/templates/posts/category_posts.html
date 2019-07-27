@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% set active_page = posts.items[0].category %}
 {% block content %}
     <h1 class="mb-3">Category: {{ posts.items[0].category }} ({{ posts.total }})</h1>
     {% for post in posts.items %}
